@@ -1,0 +1,79 @@
+@font-face {
+    font-family: 'Pixel';
+    src: url("./Pixel.ttf"); 
+}
+
+html {
+    height: 100%;
+}
+
+.conteudo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100%;
+}
+
+body{
+    margin:0;
+    overflow: hidden;
+    background-color: #0D262D;
+    height: 100%;
+}
+
+h1 {
+    position:absolute;
+    top:5%;
+    color: #fff;
+    z-index: 1;
+    font-family: Pixel;
+    font-size:60px;
+}
+.game{
+    display:block;
+    position:relative;
+    width:100vw;
+    height:100vh;
+}
+.bird {
+    position:absolute;
+    width:60px;
+    height:43.18px;
+    top:50%;
+    left:50%;
+}
+
+.bird img{
+    width:60px;
+}
+.border{
+    background: linear-gradient(90deg, rgba(6,59,9,1) 0%, rgba(6,88,11,1) 52%, rgba(6,59,9,1) 100%);
+    border:2px solid black;
+    -webkit-box-shadow: 0px 0px 18px 0px rgba(0,0,0,0.85);
+    -moz-box-shadow: 0px 0px 18px 0px rgba(0,0,0,0.85);
+    box-shadow: 0px 0px 18px 0px rgba(0,0,0,0.85);
+}
+
+.obstaclebox {
+    position:absolute;
+    display:flex;
+    flex-direction: column;
+    justify-content: space-between;
+    right:0%;
+    height:100vh;
+}
+
+.pipe{
+    width:100px;
+    height:200px;
+    margin-left:15px;
+}
+
+.mouth {
+    width:130px;
+    height:40px;
+}
+
+.upper {
+    margin-bottom: auto;
+}

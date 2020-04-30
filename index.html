@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Flappy Bird</title>
+    <link rel="stylesheet" href="css/flappy.css">
+</head>
+
+<body class="conteudo">
+    <!-- <h1>Flappy Bird</h1> -->
+    <div class="game" wm-flappy></div>
+    <audio preload="auto">
+        <source src="./js/score.mp3" type="audio/mpeg">
+    </audio>
+    <audio preload="auto">
+        <source src="./js/death.mp3" type="audio/mpeg">
+    </audio>
+    <h1>0</h1>
+    <div class="bird" wm-bird><img src="./imgs/passaro.png" alt="Bird"></div>
+    <div class="obstaclebox" obstacle style="right:10%;"><div class="pipe border" upperpipe></div><div class="mouth border upper"></div><div class="mouth border"></div><div class="pipe border" lowerpipe></div></div>
+    <div class="obstaclebox" obstacle style="right:-30%;"><div class="pipe border" upperpipe></div><div class="mouth border upper"></div><div class="mouth border"></div><div class="pipe border" lowerpipe></div></div>
+    <div class="obstaclebox" obstacle style="right:-60%;"><div class="pipe border" upperpipe></div><div class="mouth border upper"></div><div class="mouth border"></div><div class="pipe border" lowerpipe></div></div>
+    <script src="js/flappy.js"></script>
+</body>
+
+</html>
