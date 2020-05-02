@@ -1,10 +1,10 @@
-var keyState = {};    
-window.addEventListener('keydown',function(e){
+const keyState = {};
+window.addEventListener('keydown', function (e) {
     keyState[e.keyCode || e.which] = true;
-},true);    
-window.addEventListener('keyup',function(e){
+}, true);
+window.addEventListener('keyup', function (e) {
     keyState[e.keyCode || e.which] = false;
-},true);
+}, true);
 
 const resetPipe = function (flexbox, move = true) {
     let percentage = (Math.random() * 69) + 1
@@ -29,7 +29,7 @@ const walkPipe = function () {
                     right = "0%"
                     resetPipe(flexbox)
                 }
-                else if (right==52) {
+                else if (right == 52) {
                     document.querySelectorAll("audio")[0].play()
                     document.querySelector("h1").innerHTML = parseInt(document.querySelector("h1").innerHTML) + 1
                 }
@@ -70,7 +70,7 @@ const birdGravity = function () {
             if (playerTop <= 94.8) {
                 player.style.top = `${playerTop + gspeed}%`
                 gspeed += 0.0005
-            } 
+            }
         }, 1)
     }
     this.stop = () => { clearInterval(this.intervalID) }
@@ -86,11 +86,15 @@ const birdJump = setInterval(() => {
             player.style.top = `0.1%`
         }
     }
-},1)
+}, 1)
 
 gravity = new birdGravity
 pipesMov = new walkPipe
 gravity.start()
 pipesMov.start()
 document.querySelectorAll("[obstacle]").forEach(flexbox => { resetPipe(flexbox, false) })
-window.onkeyup = gravity.start
+window.onkeyup = e => {
+    if (e.keyCode == 32) {
+        gravity.start()
+    }
+}
