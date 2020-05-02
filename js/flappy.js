@@ -56,7 +56,6 @@ const isCollide = setInterval(() => {
             gravity.stop()
             clearInterval(birdJump)
             window.onkeyup = null
-            setTimeout(() => {location.reload()}, 3500)
             clearInterval(isCollide)
         }
     })
@@ -71,7 +70,7 @@ const birdGravity = function () {
             if (playerTop <= 94.8) {
                 player.style.top = `${playerTop + gspeed}%`
                 gspeed += 0.0005
-            }
+            } 
         }, 1)
     }
     this.stop = () => { clearInterval(this.intervalID) }
@@ -83,6 +82,9 @@ const birdJump = setInterval(() => {
     if (keyState['32']) {
         gravity.stop()
         player.style.top = `${playerTop - 0.2}%`
+        if (playerTop <= 0) {
+            player.style.top = `0.1%`
+        }
     }
 },1)
 
