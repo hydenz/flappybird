@@ -1,3 +1,33 @@
+let walkSpeed = 0.04
+let scoreDist = 52
+let gapBetween = 30
+const flexBoxes = document.querySelectorAll("[obstacle]")
+let evaluteScore = function (right) {
+    return right == scoreDist
+}
+if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+    flexBoxes.forEach((flexbox, index, array) => {
+        flexbox.style.right = `${-40 - (120 * index)}%`
+    })
+    walkSpeed = 0.095
+    scoreDist = 48.35
+    gapBetween = 120
+    document.addEventListener("touchstart", e => {
+        e.preventDefault()
+        touchState = true
+    })
+    document.addEventListener("touchend", e => {
+        e.preventDefault()
+        touchState = false
+    })
+
+
+    evaluteScore = function (right) {
+        return scoreDist - 0.1 < right && right < scoreDist
+    }
+}
+
+let touchState = false
 const keyState = {};
 window.addEventListener('keydown', function (e) {
     keyState[e.keyCode || e.which] = true;
@@ -6,15 +36,21 @@ window.addEventListener('keyup', function (e) {
     keyState[e.keyCode || e.which] = false;
 }, true);
 
-const resetPipe = function (flexbox, move = true) {
+const resetPipe = function (flexbox, resetPos = true) {
     let percentage = (Math.random() * 69) + 1
     let reversedPercentage = 100 - percentage - 30
     let upperpipe = flexbox.childNodes[0]
     let lowerpipe = flexbox.childNodes[3]
     upperpipe.style.height = `${percentage}%`
     lowerpipe.style.height = `${reversedPercentage}%`
-    if (move)
-        flexbox.style.right = "0%"
+    if (resetPos) {
+        let flexRights = []
+        flexBoxes.forEach(item => flexRights.push(parseFloat(item.style.right.split("%")[0])))
+
+        let right = flexRights.reduce((total, num) => num < total ? num : total, flexRights[0])
+        flexbox.style.right = `${right - gapBetween}%`
+    }
+
 }
 
 
@@ -25,15 +61,14 @@ const walkPipe = function () {
             flexBoxes.forEach(flexbox => {
                 let right = parseFloat(flexbox.style.right.split("%")[0]) || 0
                 if (right >= 100) {
-                    flexbox.style.right = "0%"
-                    right = "0%"
                     resetPipe(flexbox)
+                    right = flexbox.style.right
                 }
-                else if (right == 52) {
+                else if (evaluteScore(right)) {
                     document.querySelectorAll("audio")[0].play()
                     document.querySelector("h1").innerHTML = parseInt(document.querySelector("h1").innerHTML) + 1
                 }
-                flexbox.style.right = `${right + 0.04}%`
+                flexbox.style.right = `${right + walkSpeed}%`
             })
         }, 1)
     }
@@ -56,6 +91,7 @@ const isCollide = setInterval(() => {
             gravity.stop()
             clearInterval(birdJump)
             window.onkeyup = null
+            window.ontouchend = null
             clearInterval(isCollide)
         }
     })
@@ -79,7 +115,7 @@ const birdGravity = function () {
 const birdJump = setInterval(() => {
     let player = document.querySelector("[wm-bird]")
     let playerTop = parseFloat(player.style.top.split("%")[0])
-    if (keyState['32']) {
+    if (keyState['32'] || touchState) {
         gravity.stop()
         player.style.top = `${playerTop - 0.2}%`
         if (playerTop <= 0) {
@@ -97,4 +133,7 @@ window.onkeyup = e => {
     if (e.keyCode == 32) {
         gravity.start()
     }
+}
+window.ontouchend = () => {
+    gravity.start()
 }

@@ -19,6 +19,7 @@ body{
     overflow: hidden;
     background-color: #0D262D;
     height: 100%;
+    position: relative;
 }
 
 h1 {
@@ -39,6 +40,8 @@ h1 {
     position:absolute;
     width:60px;
     height:43.18px;
+    background-image:url("passaro.png");
+    background-size: 60px 43.18px;
     top:50%;
     left:50%;
 }
@@ -77,3 +80,24 @@ h1 {
 .upper {
     margin-bottom: auto;
 }
+
+@media (max-width: 1000px) {
+    body {
+        background-color: lightblue;
+        
+    }
+
+    html,body {
+        overflow: hidden;
+    }
+
+    .bird {
+        width:42.8px;
+        height:30.8px;
+        top:50%;
+        left:50%;
+        background-image:url("passaro.png");
+        background-size: 42.8px 30.8px;
+    }
+    
+  }
